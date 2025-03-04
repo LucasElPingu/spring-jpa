@@ -3,9 +3,19 @@ package com.aprendizado.spring_jpa.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity //Para o JPA mapear como entidade do dominio
+@Table(name = "tb_user") //A palavra user e reservada do banco de dados h2
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //difinição de estrategia de auto incremento para o Id.
 	private Long id;
 	private String name;
 	private String email;
