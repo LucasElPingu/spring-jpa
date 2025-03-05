@@ -1,7 +1,7 @@
 # spring-jpa
  São anotações e observações que escreverei aqui dos passos que seguirei na criação do projeto
 
- Objetivos
+#OBJETIVOS
  Criar projeto Spring Boot Java
  Implementar modelo de domínio //Modelo com as entidades do negócios, com vários relacionamentos
  Estruturar camadas lógicas: resource, service, repositor //o backend e dividido em camadas resourcer(controladores rest): são a interface da aplicação com o backend, vão receber as requisições e responder
@@ -11,7 +11,7 @@ de acordo com o compartimento do sistema //todas as camadas se comunicao com a c
  CRUD - Create, Retrieve, Update, Delete //operações de um cadastro completo de uma entidade
  Tratamento de exceções 
 
-Ferramentas a ser utilizada
+#FERRAMENTAS A SEREM UTILIZADAS
 .Spring boot
 .Apache Tomcat //contêiner web para executar a aplicação
 .maven //gerenciado de dependências
@@ -22,7 +22,7 @@ Ferramentas a ser utilizada
 
 OBS: O SPRING BOOT TA NO 3 A AULA TA NO 2, PRESTAR ATENÇÃO NISSO
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-Project created
+#PROJECT CREATED
 Checklist:
  Spring Initializr //PROGAMA WEB PARA CRIAR PROJETOS SPRING BOOT, COLOCA NO GOOGLE
 o Maven
@@ -30,7 +30,8 @@ o Java 17
 o Packing JAR
 o Dependencies: Spring Web
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-User entity and resource //vai ser o recursos web correspondente a entidade user, vai disponibilizar 2 endpoints para recuperarmos os usuários cadastrados e usuários pelo id.
+#USER ENTITY AND RESOURCES 
+//vai ser o recursos web correspondente a entidade user, vai disponibilizar 2 endpoints para recuperarmos os usuários cadastrados e usuários pelo id.
 Basic entity checklist:
  Basic attributes
  Associations (instantiate collections)
@@ -38,7 +39,9 @@ Basic entity checklist:
  Getters & Setters (collections: only get)
  hashCode & equals
  Serializable //permite que o objeto seja transformado em cadeia de bytes, para que ele trafegue na rede, seja gravado em arquivos
-_____________________________________________________________________________________________________________________________________________________________________________________________________________________H2 database, test profile, JPA //Configurar o banco de dados de testes (h2) ele e um banco de dados em memória ele já vem integrado ao projeto e so rodar que ele vai ser criado. Profile de teste e um perfil
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+#H2 DATABASE, TEST PROFILE, JPA
+//Configurar o banco de dados de testes (h2) ele e um banco de dados em memória ele já vem integrado ao projeto e so rodar que ele vai ser criado. Profile de teste e um perfil
 do projeto especifico para fazer testes, existe outros perfis que podem ser difinidos com por exemplo um perfil de desenvolvimento com outro banco de dados específicos para não precisar toda vez que projeto roda,
 perfil de produção que e quando o projeto já esta implando no cliente que vai usar o sistema.
 Checklist:
@@ -54,7 +57,7 @@ Define os tipos de perfis a serem utilizados no caso foi criado um perfil de tes
 podendo criar uma classe de configuração que n e nem um dos 3 tipos ela e uma classe auxiliar que faz algumas configurações na aplicação
 
 Explicação sobre o arquivo application-test
-# DATASOURCE
+DATASOURCE
 #1. Define o driver que o Spring Boot vai usar para se conectar ao banco de dados o H2 é um banco de dados leve e embutido, ideal para testes.
 #2. Define a URL de conexão do banco.jdbc:h2:mem:testdb Significa que o banco será criado na memória (mem) e chamado testdb.
 #OBS: O banco some quando o aplicativo é encerrado, já que ele e em memória.
@@ -63,15 +66,16 @@ Explicação sobre o arquivo application-test
 
 #1. Ativa a interface web do banco H2 permitindo acessar os dados pelo navegador.
 #2. Define o endereço da interface web de adm -> http://localhost:8080/h2-console.
-# H2 CLIENT
+H2 CLIENT
 
-# JPA, SQL
+JPA, SQL
 #1. Define o dialeto do Hibernate o Hibernate precisa saber como traduzir as consultas SQL para o banco H2.
 #2. Faz o Spring esperar a criação do banco antes de rodar scripts SQL iniciais para testes, garantindo que o banco existe antes da inicialização.
 #3. Exibe no console todas as consultas SQL executadas pelo Hibernate.
 #4. Formatar a saída SQL no console para ficar mais legível
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-JPA repository, dependency injection, database seeding //Implementaçção do primeiro repositorio, utilizando o JPA repository do Spring data JPA que e um subframework do ecosistema spring. Injeçção de dependencias
+#JPA REPOSITORY, INJEÇÃO DE DEPENDENCIAS, DATABASE SEEDING 
+//Implementaçção do primeiro repositorio, utilizando o JPA repository do Spring data JPA que e um subframework do ecosistema spring. Injeçção de dependencias
 //automatica feita pelo container do framework. Database seeding - primeira intansiação do bd, inserir alguns dados automaticamente no bd. 
 Checklist:
 //o repositorio e a camada mais em baixo da arquitetura proposta, resource layer(rest controllers) => service layer => Data access layer(data repositories)
@@ -88,7 +92,8 @@ Checklist:
  Persist objects 
 
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-Service layer, component registration //existe em todo framework que faz injeção de dependencias no caso o component //na camada de serviços implementaremos regras de negocios, orquestrção de repositories (tipo //verificar o estoque ou salvar o itens para depois para salvar os pedidos, operações no geral) tem algumas desvantagens: algumas operações a camada de serviço vai passar para o repository a chamada de alguma //coisa como fazer um endppoint para recupera um usuario pelo Id, a chamada e passada para repository
+SERVICE LAYER, COMPONENT REGISTRATION
+//existe em todo framework que faz injeção de dependencias no caso o component //na camada de serviços implementaremos regras de negocios, orquestrção de repositories (tipo //verificar o estoque ou salvar o itens para depois para salvar os pedidos, operações no geral) tem algumas desvantagens: algumas operações a camada de serviço vai passar para o repository a chamada de alguma //coisa como fazer um endppoint para recupera um usuario pelo Id, a chamada e passada para repository
 //OBS: não e obrigado a ter a camada de serviço, mas e bom para n sobrecarregar a camada de recursos com regras de negocios
 //criar a classe UserService no pacote services, nela sera colocada a operação de buscar todos os usuario e por id
 Order, Instant, ISO 8601
