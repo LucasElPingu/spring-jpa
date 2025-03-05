@@ -1,7 +1,7 @@
 # spring-jpa
  São anotações e observações que escreverei aqui dos passos que seguirei na criação do projeto
 
-#OBJETIVOS
+OBJETIVOS
  Criar projeto Spring Boot Java
  Implementar modelo de domínio //Modelo com as entidades do negócios, com vários relacionamentos
  Estruturar camadas lógicas: resource, service, repositor //o backend e dividido em camadas resourcer(controladores rest): são a interface da aplicação com o backend, vão receber as requisições e responder
@@ -11,7 +11,7 @@ de acordo com o compartimento do sistema //todas as camadas se comunicao com a c
  CRUD - Create, Retrieve, Update, Delete //operações de um cadastro completo de uma entidade
  Tratamento de exceções 
 
-#FERRAMENTAS A SEREM UTILIZADAS
+FERRAMENTAS A SEREM UTILIZADAS
 .Spring boot
 .Apache Tomcat //contêiner web para executar a aplicação
 .maven //gerenciado de dependências
@@ -22,7 +22,7 @@ de acordo com o compartimento do sistema //todas as camadas se comunicao com a c
 
 OBS: O SPRING BOOT TA NO 3 A AULA TA NO 2, PRESTAR ATENÇÃO NISSO
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-#PROJECT CREATED
+PROJECT CREATED
 Checklist:
  Spring Initializr //PROGAMA WEB PARA CRIAR PROJETOS SPRING BOOT, COLOCA NO GOOGLE
 o Maven
@@ -40,7 +40,7 @@ Basic entity checklist:
  hashCode & equals
  Serializable //permite que o objeto seja transformado em cadeia de bytes, para que ele trafegue na rede, seja gravado em arquivos
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-#H2 DATABASE, TEST PROFILE, JPA
+H2 DATABASE, TEST PROFILE, JPA
 //Configurar o banco de dados de testes (h2) ele e um banco de dados em memória ele já vem integrado ao projeto e so rodar que ele vai ser criado. Profile de teste e um perfil
 do projeto especifico para fazer testes, existe outros perfis que podem ser difinidos com por exemplo um perfil de desenvolvimento com outro banco de dados específicos para não precisar toda vez que projeto roda,
 perfil de produção que e quando o projeto já esta implando no cliente que vai usar o sistema.
@@ -74,7 +74,7 @@ JPA, SQL
 #3. Exibe no console todas as consultas SQL executadas pelo Hibernate.
 #4. Formatar a saída SQL no console para ficar mais legível
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-#JPA REPOSITORY, INJEÇÃO DE DEPENDENCIAS, DATABASE SEEDING 
+JPA REPOSITORY, INJEÇÃO DE DEPENDENCIAS, DATABASE SEEDING 
 //Implementaçção do primeiro repositorio, utilizando o JPA repository do Spring data JPA que e um subframework do ecosistema spring. Injeçção de dependencias
 //automatica feita pelo container do framework. Database seeding - primeira intansiação do bd, inserir alguns dados automaticamente no bd. 
 Checklist:
