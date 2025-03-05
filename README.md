@@ -110,6 +110,17 @@ Basic new entity checklist:
 
 **OBS: Quando vc tem um objeto eu vai poder ser injeto pelo mecanismo de injeção de dependência do spring a classe do objeto tem eu esta registrado no mecanismo de injeção de dependência e todo framework tem uma forma de fazer isso como a objeto service do tipo UserService no UserResource tem que estar registrada no spring voltando para a classe UserService usando anotação @Component ela já registra a classe como componente do string e ele vai pode ser injeto automaticamente, ele também tem alguma outras anotação especificas como @Repository para registra um repositório e @Service para registrar um service na camada de serviço, vamos usar o serviço já que o userService e um serviço, não precisa registrar o UserRepository pq ele ta extendendo a interface JpaRepositry que já esta registrado como componente do spring**
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Order, Instant, ISO 8601
+_(O ISO 8601 define várias possibilidades de formatos para a data sendo a mais comum "yyyy-MM-ddTHH:mm:ssZ" a letra "Z" avisa que ta no padrão UTC Timezone GNT)_ 
+## Basic new entity checklist:
+- Entity _(Para definir o relacionamento entre as tabelas colocar as anotações **@ManyToOne** na entidade Order, pois existe vários pedidos para 1 cliente e em baixo coloca **@JoinColumn(name = "client_id")** para mudar o nome na tabela para ficar mais fácil de visualizar qual e a chave estrangeira. Já no Client colocar **@OneToMany(mappedBy = "client")** para indicar que e uma relação um para muitos por parte do cliente e o  **mappedBy** e para indicar o nome do atributo do outro lado da associação(a chave estrangeira))_
+
+-    "To many" association, lazy loading, JsonIgnore _(O **JPA** por padrão não carrega os objetos na relação '**ToMany**', isso se chama LazyLoading (Teria que colocar o **@JsonIgnore** no **@ManyToOne** e adicionar a linhas 'Spring.jpa.open-in-view=true' no arquivo 'application.properties') essa linha vai permitir que o **Jackson** no fim do ciclo de vida peça ao **JPA** ir no **BD** buscar os objetos)_
+- Repository
+- Seed _(File **TestConfig** para adicionar alguns pedidos na carga inicial do DB)_
+- Service
+- Resource
+- _(Quando finalizar a criação dos passos anterior vai ter um problema no qual ao fazer uma requisição buscando um usuário pelo ID sera criado um loop, pois um usuário tem vários pedidos e o pedido tem um usuários e um usuário tem um pedido e assim por diante para evitar isso teremos que utilizar a anotação **@JsonIgnore** em pelo menos um dos dois lados(Colocar em cima do **@OneToMany**)_
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
