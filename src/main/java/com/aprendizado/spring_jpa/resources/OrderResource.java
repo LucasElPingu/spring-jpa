@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aprendizado.spring_jpa.entities.User;
-import com.aprendizado.spring_jpa.services.UserService;
+import com.aprendizado.spring_jpa.entities.Order;
+import com.aprendizado.spring_jpa.services.OrderService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/orders")
+public class OrderResource {
 
 	@Autowired
-	private UserService service;
+	private OrderService service;
 	
 	@GetMapping({ "", "/"}) //use expressões regulares de ou um dos dois
-	public ResponseEntity<List<User>> findAll(){
-		List<User>list = service.findAll();
+	public ResponseEntity<List<Order>> findAll(){
+		List<Order>list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	//Responde requisições do tipo get do http
 	/*@GetMapping("/") //O meu spring ta trando o "/" no final como uma rota diferente, testei adicionando a linha
 	//spring.web.mvc.pathmatch.matching-strategy=path_pattern_parser no application.properties, n deu certo
-	public ResponseEntity<List<User>> findAllWhithSlash(){
-		List<User>list = service.findAll();
+	public ResponseEntity<List<Order>> findAllWhithSlash(){
+		List<Order>list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}*/
 	
 	@GetMapping(value = "/{id}") //indica que a requisição vai aceitar um id na url 
-	public ResponseEntity<User> findById(@PathVariable Long id){
+	public ResponseEntity<Order> findById(@PathVariable Long id){
 		//o @PathVariable indica que o parametro vai vir pela url
-		User u = service.findById(id);
+		Order u = service.findById(id);
 		return ResponseEntity.ok().body(u);
 	}
 	

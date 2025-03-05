@@ -1,19 +1,24 @@
 package com.aprendizado.spring_jpa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity //Para o JPA mapear como entidade do dominio
 @Table(name = "tb_user") //A palavra user e reservada do banco de dados h2
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //difinição de estrategia de auto incremento para o Id.
 	private Long id;
@@ -21,7 +26,13 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	private String password;
-	
+	//Associação e instanciar as coleções
+	@JsonIgnore /*pare evitar o loop do user que tem pedidos que tem user... Ele vai meio que ignorar quando esse atributo quando a requisição
+	chegar, quando se tem um ToMany por padrão o Ignore não carrega o objeto (Teria que colocar o @JsonIgnore no @ManyToOne e adicionar a linhas
+	Spring.jpa.open-in-view=true no arquivo application.properties */
+	@OneToMany(mappedBy = "client") 
+	private List<Order> orders = new ArrayList<>();
+
 	public User() {
 	}
 
@@ -73,6 +84,10 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -95,6 +110,6 @@ public class User implements Serializable{
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", password=" + password
 				+ "]";
 	}
-	
-	
+
+
 }
