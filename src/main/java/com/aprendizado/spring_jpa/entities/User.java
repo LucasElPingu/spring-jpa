@@ -28,7 +28,7 @@ public class User implements Serializable{
 	private String password;
 	//Associação e instanciar as coleções
 	@JsonIgnore /*pare evitar o loop do user que tem pedidos que tem user... Ele vai meio que ignorar quando esse atributo quando a requisição
-	chegar, quando se tem um ToMany por padrão o Ignore não carrega o objeto (Teria que colocar o @JsonIgnore no @ManyToOne e adicionar a linhas
+	chegar, quando se tem um ToMany por padrão o Ignore não carrega o objetos (Teria que colocar o @JsonIgnore no @ManyToOne e adicionar a linhas
 	Spring.jpa.open-in-view=true no arquivo application.properties */
 	@OneToMany(mappedBy = "client") 
 	private List<Order> orders = new ArrayList<>();
