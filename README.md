@@ -122,6 +122,29 @@ _(O ISO 8601 define várias possibilidades de formatos para a data sendo a mais 
 - Resource
 - _(Quando finalizar a criação dos passos anterior vai ter um problema no qual ao fazer uma requisição buscando um usuário pelo ID sera criado um loop, pois um usuário tem vários pedidos e o pedido tem um usuários e um usuário tem um pedido e assim por diante para evitar isso teremos que utilizar a anotação **@JsonIgnore** em pelo menos um dos dois lados(Colocar em cima do **@OneToMany**)_
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# OrderStatus enum 
+
+Existe outro jeito de fazer o enum para o status do pedido (por padrão no db o java atribui um valor numérico em cada valor dos tipos enumerados ex:0, 1, 2), pois existe um problema na forma normal do
+java no qual ao inserir outro tipo enum no meio ele causara problemas no valor de baixo na tabela ficando errado, pois o valor do debaixo serão incrementados em 1.
+- Passo 1: Criar o Enum OrderStatus
+- Passo 2: Atribuir valores numéricos aos tipos enum, Ex: PAID(2);
+- Passo 3: Criar a variável code do tipo int
+- Passo 4: Criar os métodos private OrderStatus(int code) _(Construtor)_; // public int getCode() return code; // public static OrderStatus valueOf(int code) _(Para retonar o status, e o métodos lança **excessão** )_;
+- Passo 5: Criar uma variável tipo Integer na classe Order
+- Passo 6: Alterar o get e o set para retornar um OrderStatus e modificar os comandos dentro dos métodos e no construtor usar o método set para fazer a injeção de dependência
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Category e Products
+
+A criação da classe Category e Products e do mesmo jeito que das classes anteriores _(Não esquecer das associações que nesse caso foram instanciadas usando o Set para que não haja ocorrência)_
+
+## ASSOCIAÇÃO DE MUITOS PARA MUITOS 
+_(Com JoinTable)_
+- Quando temos a associação de muitos para muitos em POO, podemos simplesmente dizer que um produto possui várias categorias e eu uma categoria possui vários produtos, pois as listas armazenam a referencia para os objetos relacionados. Já no banco de dados isso não e possível já que ele não armazena essa referencia, e necessário criar uma tabela de associação com as chaves estrangeiras de ambas entidades associando uma as outras.
+- Para fazer isso usar a anotação **@ManyToMany** e após isso a anotação **@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), 
+inverseJoinColumns = @JoinColumn(name ="category_id"))** criando uma tabela de associação, após isso e necessário ir na classe category e adicionar a anotação para mapear a classe category 
+**@ManyToMany(mappedBy = "categories")** junto com a anotação **@JsonIgnore** para criar um LazyLoading e evitar o loop infinito.
+- Na classe de configuração e necessário indicar as associações eu serão feitas antes de salvar novamente a tabela products, Ex: p2.getCategories().add(cat1) /// p2.getCategories().add(cat3);
+- **Obs: E necessário salvar novamente a tabela após indicar as associações**.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
