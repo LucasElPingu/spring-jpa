@@ -44,7 +44,6 @@ public class OrderItem {
 		return id.getProduct();
 	}
 	
-	@JsonIgnore
 	public void setProduct(Product product) {
 		id.setProduct(product);;
 	}

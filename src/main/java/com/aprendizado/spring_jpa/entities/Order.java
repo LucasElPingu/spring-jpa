@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.aprendizado.spring_jpa.entities.enums.OrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +34,16 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id") // Essa vai ser a chave estrangeira a ser usada, vai ser criado uma coluna no DB
 	// com esse nome
 	private User client; // Sempre seguir o diagrama
+	
+	//Esta mapeando as duas entidades para ter o mesmo "id" e no caso de mapear relação 1 para 1 com msm Id e obrigatorio colocar o cascade
+	/*
+	 A opção cascade na anotação @OneToOne define como as operações de persistência (como salvar, atualizar, deletar) realizadas na 
+	 entidade principal (Order) serão propagadas para a entidade associada (Payment).
+	No seu exemplo, cascade = CascadeType.ALL significa que todas as operações de persistência realizadas em Order serão automaticamente 
+	aplicadas a Payment.
+	 */
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL) 
+	private Payment payment;
 	
 	/*
 	 O pedido tem vários itens. Ele e mapeado pelo id.order, pois no OrdemItem temos o Id e no Id que tem o Order
@@ -71,6 +83,14 @@ public class Order implements Serializable {
 
 	public void setClient(User client) {
 		this.client = client;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	@Override
