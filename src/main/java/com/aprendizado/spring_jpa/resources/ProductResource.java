@@ -26,7 +26,7 @@ public class ProductResource {
 	}
 	
 	//Responde requisições do tipo get do http
-	/*@GetMapping("/") //O meu spring ta trando o "/" no final como uma rota diferente, testei adicionando a linha
+	/*@GetMapping("/") //O meu spring ta tratando o "/" no final como uma rota diferente, testei adicionando a linha
 	//spring.web.mvc.pathmatch.matching-strategy=path_pattern_parser no application.properties, n deu certo
 	public ResponseEntity<List<Product>> findAllWhithSlash(){
 		List<Product>list = service.findAll();

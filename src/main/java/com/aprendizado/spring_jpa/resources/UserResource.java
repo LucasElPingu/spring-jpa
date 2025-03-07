@@ -26,7 +26,7 @@ public class UserResource {
 	}
 	
 	//Responde requisições do tipo get do http
-	/*@GetMapping("/") //O meu spring ta trando o "/" no final como uma rota diferente, testei adicionando a linha
+	/*@GetMapping("/") //O meu spring ta tratando o "/" no final como uma rota diferente, testei adicionando a linha
 	//spring.web.mvc.pathmatch.matching-strategy=path_pattern_parser no application.properties, n deu certo
 	public ResponseEntity<List<User>> findAllWhithSlash(){
 		List<User>list = service.findAll();

@@ -43,7 +43,8 @@ public class OrderItem {
 	public Product getProduct() {
 		return id.getProduct();
 	}
-
+	
+	@JsonIgnore
 	public void setProduct(Product product) {
 		id.setProduct(product);;
 	}
