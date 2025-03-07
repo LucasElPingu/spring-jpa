@@ -2,7 +2,9 @@ package com.aprendizado.spring_jpa.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.aprendizado.spring_jpa.entities.enums.OrderStatus;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +32,12 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id") // Essa vai ser a chave estrangeira a ser usada, vai ser criado uma coluna no DB
 	// com esse nome
 	private User client; // Sempre seguir o diagrama
+	
+	/*
+	 O pedido tem vários itens. Ele e mapeado pelo id.order, pois no OrdemItem temos o Id e no Id que tem o Order
+	 */
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem>items = new HashSet<>();
 
 	public Order() {
 	}
@@ -77,6 +86,10 @@ public class Order implements Serializable {
 		if (orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
+	}
+
+	public Set<OrderItem> getItems() {
+		return items;
 	}
 
 	@Override

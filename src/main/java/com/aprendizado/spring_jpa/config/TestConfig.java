@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.aprendizado.spring_jpa.entities.Category;
 import com.aprendizado.spring_jpa.entities.Order;
+import com.aprendizado.spring_jpa.entities.OrderItem;
 import com.aprendizado.spring_jpa.entities.Product;
 import com.aprendizado.spring_jpa.entities.User;
 import com.aprendizado.spring_jpa.entities.enums.OrderStatus;
 import com.aprendizado.spring_jpa.repositories.CategoryRepository;
+import com.aprendizado.spring_jpa.repositories.OrderItemRepository;
 import com.aprendizado.spring_jpa.repositories.OrderRepository;
 import com.aprendizado.spring_jpa.repositories.ProductRepository;
 import com.aprendizado.spring_jpa.repositories.UserRepository;
@@ -34,6 +36,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	//A interface CommandLineRunner implementa esse metodo que sera exetuado toda vez que a aplicação for iniciada
 	@Override
@@ -71,5 +76,15 @@ public class TestConfig implements CommandLineRunner{
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		repository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		//O oi1 e do pedido 1 com o produto 1 com 2 unidades e o preço pega no p1
+		//O oi2 e do pedido 1 com o produto 3 com 1 unidade e o preço pega no p3
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
 	}
 }

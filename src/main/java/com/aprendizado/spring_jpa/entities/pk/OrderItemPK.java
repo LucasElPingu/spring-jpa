@@ -1,0 +1,66 @@
+package com.aprendizado.spring_jpa.entities.pk;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+import com.aprendizado.spring_jpa.entities.Order;
+import com.aprendizado.spring_jpa.entities.Product;
+
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+/* 
+ Indica que essa classe não é uma entidade independente, mas sim um componente que será incorporado dentro de outra entidade. 
+ A classe OrderItemPK é usada para definir a chave primária composta da entidade OrderItem.
+*/
+@Embeddable
+public class OrderItemPK implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
+
+	/*
+	  O JPA exige um construtor padrão (sem argumentos) para poder instanciar
+	  objetos automaticamente ao recuperar dados do banco. Como Java já cria um
+	  construtor padrão automaticamente, não é necessário escrevê-lo manualmente.
+	*/
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(order, product);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItemPK other = (OrderItemPK) obj;
+		return Objects.equals(order, other.order) && Objects.equals(product, other.product);
+	}
+
+}
