@@ -146,6 +146,42 @@ inverseJoinColumns = @JoinColumn(name ="category_id"))** criando uma tabela de a
 - Na classe de configuração e necessário indicar as associações eu serão feitas antes de salvar novamente a tabela products, Ex: p2.getCategories().add(cat1) /// p2.getCategories().add(cat3);
 - **Obs: E necessário salvar novamente a tabela após indicar as associações**.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Entidades OrderItem com associação de muitos para muitos com atributos extras
+
+## Checklist:
+- ### OrderItemPK _(Classe auxiliar que representara o par Product e Order, na tabela possuindo as chaves estrangeiras assim criando uma chave composta, além de não possuir uma chave primaria própria, mas usara a chave composta como chave primaria dentro de OrderItem)_
+- Criar uma classe auxiliar chamada OrderItemPK no pacote entities.pk, que terá referencia para as duas entidades
+_(OBS: Uma classe auxiliar no java é uma classe criada para fornece suporte a outra classe. Costumam conter métodos estáticos ou instancias auxiliares para evitar repetição de código.
+- A classe não terá construtor _( O JPA exige um construtor padrão (sem argumentos) para poder instanciar objetos automaticamente ao recuperar dados do banco. Como Java já cria um construtor padrão automaticamente, não é necessário escrevê-lo manualmente)_ 
+- terá getters e setters, hashcode e equals, serializable
+#### Anotações a serem adicionados 
+- **@Embeddable** em cima da classe para indicar que não e uma classe independente, mas sim um componente que será incorporado em outra entidade
+- **@ManyToOne** e uma relação de muitos para um _(Colocar em cima do atributo order e product)_
+- @JoinColumn (name = "exemplo_id")
+- ### OrderItem
+- O primeiro atributo será o identificador correspondente a chave primaria _(OrderItemPK id = new OrderItemPK();)_
+- Não colocar o id no construtor nem no set e get automaticamente _(será colocado manualmente)_ Ex do constutor: public OrderItem (Order order, Product product, Integer quantity, Double price) { 
+//n id.setOrder(order); //n id.setProduct(product); 
+- Ver o exemplo de get e set no código
+- Colocar as anotttações **@EmbeddedId** em cima do atributo id e **@JsonIgnore** _(Representa a chave composta)_ em cima do getOrder, pois ele retornar a order e criara um loop.
+- ### Order one-to-many association
+- Nos temos uma associação um para muitos, um pedido podendo ter vários items criar uma coleção com OrderItem e colocar a anotação **@OneToMany(mappedBy = "id.order")**, já que no OrderItem temos o id e dentro do id temos o order.
+- ### Seed 
+- Semelhante aos outros ex: OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Associação muitos para muitos entre Product e OrderItem
+
+- Criar uma associação entre Product e OrderItem semelhante ao de Order
+- Teremos que varrer a coleção de OrderItem associado ao produto e para cada OrderItem tem que associar ao objeto Oder associado ao OrderItem, devolvendo uma lista de Order.
+-  _(Controller Rest responde requisição HTTP e retorna dados em forma de Json. Por padrão, a biblioteca **Jackson utiliza os métodos getters para serializar objetos Java em JSON e para desserializar JSON em objetos Java. Isso significa que, ao converter um objeto Java em JSON, Jackson chamará todos os métodos getters disponíveis para obter os valores dos campos)_
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Entidade Payment OneToOne
+
+- Cria a classe normalmente, na associação com a classe Order colocar a anotação **@OneToOne** e **MapsId** _(e usada para mapear uma relação de chave primária composta, diz ao JPA que a chave primária da entidade atual deve ser igual a chave primária da entidade relacionada)_
+- Colocar no atributo payment na classe Order a anotação **@OneToOne(mappedBy = "order", cascade = CascadeType.All)** _(O cascade significa eu todas as operações de persistência realizada em Order serão automaticamente aplicadas a Payment e o @OneToOne define as operações de persistência (como salvar, atualizar, deletar) realizadas na entidade principal serão propagadas  para as entidades relacionadas))_
+- No arquivo de configuração de test instanciar um Payment e fazer uma associação de mão dupla associando pedido 1 com o payment 1
+
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
