@@ -63,7 +63,11 @@ public class OrderItem {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-
+	
+	public Double getSubTotal() {
+		return price*quantity;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
