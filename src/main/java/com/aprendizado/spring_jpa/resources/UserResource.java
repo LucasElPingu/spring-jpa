@@ -3,9 +3,9 @@ package com.aprendizado.spring_jpa.resources;
 import java.net.URI;
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +70,22 @@ public class UserResource {
 		Retorna o próprio objeto salvo no corpo da resposta (body(obj)). 
 		*/
 		return ResponseEntity.created(uri).body(obj);
+	}
+	/*
+	Define que este método será chamado quando uma requisição DELETE for feita para o endpoint /users/{id}.
+	O {id} na URL representa um parâmetro dinâmico, ou seja, o ID do usuário a ser deletado.
+	*/
+	@DeleteMapping (value = "/{id}")
+	/*
+ 	O @PathVariable Long id faz com que o ID recebido na URL seja passado como argumento para o método.
+	*/
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+			service.delete(id);
+			/*
+			Código HTTP 204 (No Content), indicando que a requisição foi processada com sucesso, mas não há conteúdo na resposta.
+			Isso é comum para requisições DELETE, pois, uma vez excluído, não há mais dados para retornar.
+			*/
+			return ResponseEntity.noContent().build();
 	}
 	
 }
