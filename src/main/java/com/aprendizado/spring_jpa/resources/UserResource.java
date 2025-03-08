@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aprendizado.spring_jpa.entities.User;
 import com.aprendizado.spring_jpa.services.UserService;
+
 
 @RestController
 @RequestMapping(value = "/users")
@@ -77,7 +79,7 @@ public class UserResource {
 	*/
 	@DeleteMapping (value = "/{id}")
 	/*
- 	O @PathVariable Long id faz com que o ID recebido na URL seja passado como argumento para o método.
+ 	O **@PathVariable** Long id faz com que o ID recebido na URL seja passado como argumento para o método.
 	*/
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 			service.delete(id);
@@ -88,4 +90,14 @@ public class UserResource {
 			return ResponseEntity.noContent().build();
 	}
 	
+	//@PutMapping é usada no Spring Boot para mapear requisições HTTP do tipo PUT para um método específico no controller.
+	@PutMapping(value = "/{id}")
+	/*
+	@PathVariable Long id extrai o valor do {id} da URL e o passa como argumento para o método.
+	@RequestBody User obj o corpo da requisição HTTP (JSON enviado pelo cliente) é convertido automaticamente para um objeto User. 
+	*/
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+		obj = service.update(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
 }
