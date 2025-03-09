@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.aprendizado.spring_jpa.services.exceptions.DatabaseException;
 import com.aprendizado.spring_jpa.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	//Indica que esse método trata especificamente exceções do tipo ResourceNotFoundException
+	//Indica que esse método trata especificamente exceções do tipo DatabaseException
 	@ExceptionHandler(DatabaseException.class)
 	//Esse método captura exceções **ResourceNotFoundException** e retorna um objeto **StandardError** no corpo da resposta HTTP.
 	public ResponseEntity<StandardError> resourceNotFound(DatabaseException e, HttpServletRequest request){
