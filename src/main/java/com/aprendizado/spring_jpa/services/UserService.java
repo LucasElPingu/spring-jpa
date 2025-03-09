@@ -13,6 +13,8 @@ import com.aprendizado.spring_jpa.repositories.UserRepository;
 import com.aprendizado.spring_jpa.services.exceptions.DatabaseException;
 import com.aprendizado.spring_jpa.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //classe de serviços para o User, não e obrigado da para colocar tudo resource layer, mas ai sobrecarregaria com regras de negocios.
 @Service
 public class UserService {
@@ -65,7 +67,11 @@ public class UserService {
 		 * os dados imediatamente (carregamento preguiçoso, ou lazy loading)
 		 */
 		User entity = repository.getReferenceById(id);
+		try {
 		updateData(entity, obj);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 		return repository.save(entity);
 	}
 
