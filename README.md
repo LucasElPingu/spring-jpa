@@ -1,5 +1,5 @@
 # Projeto web services com spring boot e jpa/hibernate
- São anotações e observações que escreveri aqui dos passos que segui na criação do projeto do curso "Curso mais didático e completo de Java e POO, UML, JDBC, JavaFX, Spring Boot, JPA, Hibernate, MySQL, MongoDB e muito mais" do Professor Nelio Alves na Udemy
+> Neste documento está regisrado anotações e observações que escreveri dos passos que foram seguidos durante a criação do projeto do curso "Curso mais didático e completo de Java e POO, UML, JDBC, JavaFX, Spring Boot, JPA, Hibernate, MySQL, MongoDB e muito mais" do Professor Nelio Alves na Udemy
 
 - UML: 
 ![Captura de tela 2025-03-09 192102](https://github.com/user-attachments/assets/0d04f9d6-dbe1-41ce-ba22-1deb8f492ea8)
