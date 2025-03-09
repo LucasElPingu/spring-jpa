@@ -3,10 +3,13 @@ package com.aprendizado.spring_jpa.resources.exceptions;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 //Essa classe é um objeto de resposta para erros, ou seja, ela define o formato da resposta quando ocorre uma exceção.
 public class StandardError implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant timestamp;
 	private Integer status;
 	private String erro;
