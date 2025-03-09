@@ -204,5 +204,27 @@ ________________________________________________________________________________
 - UserService Criar os métodos **update** _(Recebendo os parâmetros Long(id) e User, após isso criando um objeto User e usar o obter uma referência do usuário no banco sem carregar os dados imediatamente usando o repository.getReferenceById(id), depois e só chamar o método updateData e retornar o o repository.save(entity))_ e **updateData** _(atualiza as informações utilizando os setters)_
 - UserResource: cria o método update com a anotação **PutMapping** _(usada no Spring Boot para mapear requisições HTTP do tipo PUT para um método específico no controller)_ e recebendo como parâmetro do método **@PathVariable Long id** _(extrai o valor do {id} da URL e o passa como argumento para o método)_ e **@RequestBody User obj** _(o corpo da requisição HTTP (JSON enviado pelo cliente) é convertido automaticamente para um objeto User)_
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Exception handling - findById
+## Checklist:
+- Criar as classes
+- NEW CLASS: Package **services.exceptions** class **ResourceNotFoundException**
+- NEW CLASS: Package **resources.exceptions** class **StandardError**
+A classe StandardError é um objeto de resposta para erros, ou seja, ela define o formato da resposta quando ocorre uma exceção. 
+- NEW CLASS: Package **resources.exceptions** class **ResourceExceptionHandler**
+A classe ResourceExceptionHandler captura exceções lançadas na aplicação e retorna respostas personalizadas.
+Principais Anotações
+- **@ControllerAdvice** → Permite que a classe intercepte exceções lançadas em qualquer controller da aplicação.
+- **@ExceptionHandler(ResourceNotFoundException.class)** → Indica que esse método trata especificamente exceções do tipo ResourceNotFoundException.
+#### Método resourceNotFound
+- Esse método captura exceções **ResourceNotFoundException** e retorna um objeto **StandardError** no corpo da resposta HTTP.
+- Alterar em UserService o método findById para retornar um **return op.orElseThrow(() -> new ResourceNotFoundException(id))**;
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Exception handling - delete
+## Checklist:
+- NEW CLASS: Package **services.exceptions** class **DatabaseException**
+- **ResourceExceptionHandler** _(Criar o método **public ResponseEntity<StandardError> resourceNotFound(DatabaseException e, HttpServletRequest request)**)_
+#### UserService
+- EmptyResultDataAccessException
+- DataIntegrityViolationException 
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
