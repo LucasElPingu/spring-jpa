@@ -29,7 +29,7 @@ public class ResourceExceptionHandler {
 	
 	//Indica que esse método trata especificamente exceções do tipo DatabaseException
 	@ExceptionHandler(DatabaseException.class)
-	//Esse método captura exceções **ResourceNotFoundException** e retorna um objeto **StandardError** no corpo da resposta HTTP.
+	//Esse método captura exceções **DatabaseException** e retorna um objeto **StandardError** no corpo da resposta HTTP.
 	public ResponseEntity<StandardError> resourceNotFound(DatabaseException e, HttpServletRequest request){
 		String error = "Database error";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
