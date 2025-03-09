@@ -183,6 +183,26 @@ ________________________________________________________________________________
 - No arquivo de configuração de test instanciar um Payment e fazer uma associação de mão dupla associando pedido 1 com o payment 1
 
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# Métodos de subtotal e total
+
+- Adicionar o método **getSubTotal()** na classe **OrderItem** e o método **getTotal()** na classe Order
+OBS: _**(Lembrar que o Jackson pega todos os gets por padrão)**_ e _**(Que trabalhamos com objetos)**_
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# User insert
+## Checklist:
+- UserService: Adicionar o método insert que retorna um User
+- UserResource: Adicionar um método insert com as anotações **@PostMapping** _(Indica que este método será chamado quando uma requisição POST for feita para o endpoint correspondente.Geralmente, POST é usado para criar novos recursos no servidor)_ e a anotação **@RequestBody** _(O método recebe um objeto JSON no corpo da requisição (@RequestBody User obj).Esse JSON é convertido automaticamente para um objeto User pelo Spring Boot)_
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# User delete 
+## Checklist:
+- UserService: Criar método delete recebendo o id e utilizando o método deleetById do JPARepository
+- UserResource Cria um método com a anotação **@DeleteMapping (value = "/{id}")** _(faz com que o ID recebido na URL seja passado como argumento para o método))_ e a anotação **@PathVariable Long id** _(faz com que o ID recebido na URL seja passado como argumento para o método)_
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________
+# User update
+## Checklist:
+- UserService Criar os métodos **update** _(Recebendo os parâmetros Long(id) e User, após isso criando um objeto User e usar o obter uma referência do usuário no banco sem carregar os dados imediatamente usando o repository.getReferenceById(id), depois e só chamar o método updateData e retornar o o repository.save(entity))_ e **updateData** _(atualiza as informações utilizando os setters)_
+- UserResource: cria o método update com a anotação **PutMapping** _(usada no Spring Boot para mapear requisições HTTP do tipo PUT para um método específico no controller)_ e recebendo como parâmetro do método **@PathVariable Long id** _(extrai o valor do {id} da URL e o passa como argumento para o método)_ e **@RequestBody User obj** _(o corpo da requisição HTTP (JSON enviado pelo cliente) é convertido automaticamente para um objeto User)_
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
