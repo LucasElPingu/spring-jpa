@@ -43,11 +43,15 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
+		/*
+		getReferenceById(id): Obtém uma referência do usuário no banco sem carregar os dados imediatamente (carregamento preguiçoso, ou lazy loading)
+		*/
 		User entity = repository.getReferenceById(id);
 		updateData(entity, obj);
 		return repository.save(entity);
 	}
 	
+	//Atualizar os campos do usuário com os novos valores vindos no obj
 	private void updateData(User entity, User obj) {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
