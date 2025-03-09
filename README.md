@@ -1,5 +1,11 @@
 # spring-jpa
- São anotações e observações que escreverei aqui dos passos que seguirei na criação do projeto
+ São anotações e observações que escreverei aqui dos passos que seguirei na criação do projeto do curso "Curso mais didático e completo de Java e OO, UML, JDBC, JavaFX, Spring Boot, JPA, Hibernate, MySQL, MongoDB e muito mais" do Professor Nelio Alves na Udemy
+
+- UML: 
+![Captura de tela 2025-03-09 192102](https://github.com/user-attachments/assets/0d04f9d6-dbe1-41ce-ba22-1deb8f492ea8)
+
+- Instancias:
+![Captura de tela 2025-03-09 192114](https://github.com/user-attachments/assets/c9ebc2fd-f734-4a7e-aaab-081967ba1d2f)
 
 # OBJETIVOS
 - Criar projeto Spring Boot Java 
