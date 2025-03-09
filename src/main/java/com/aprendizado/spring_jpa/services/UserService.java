@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.aprendizado.spring_jpa.entities.User;
 import com.aprendizado.spring_jpa.repositories.UserRepository;
+import com.aprendizado.spring_jpa.services.exceptions.ResourceNotFoundException;
 
 //classe de serviços para o User, não e obrigado da para colocar tudo resource layer, mas ai sobrecarregaria com regras de negocios.
 @Service
@@ -30,7 +31,10 @@ public class UserService {
 		 pode-se tratar esse erro usando ".orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));"
 		*/
 		Optional<User>op = repository.findById(id);
-		return op.get();
+		/*
+		Retorna o get, caso não tenha usuário ele lança uma excessão
+		*/
+		return op.orElseThrow(() -> new ResourceNotFoundException(id));
 		
 	}
 	
