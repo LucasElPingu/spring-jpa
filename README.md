@@ -332,49 +332,171 @@ OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 
 ---
 
-## 12. Deploy no Heroku 
-> **OBS:** A partir daqui será apenas na teória.
-> 
-### Checklist:
-1. Criar Heroku App e provisionar PostgreSQL.
-2. Criar banco localmente com:
-   ```sql
-   CREATE DATABASE springboot_course ENCODING 'UTF8';
-   ```
-3. Configurar PostgreSQL no projeto.
-4. Criar `application-dev.properties`.
-5. Configurar Heroku CLI e realizar o deploy.
+# Deploy Heroku
+
+> **Obs:** A parte do deploy no Heroku ficará apenas na teoria, já que agora tem que colocar cartão :/
 
 ---
 
-## 13. Configuração do PostgreSQL Local
+## 12. Create Heroku app & provision PostgreSQL
 
 ### Checklist:
-- Download: [PostgreSQL](https://www.postgresql.org/download/)
-- Configuração:
-  - Superuser: `postgres`
-  - Senha: `1234567`
-  - Porta: `5432`
-- Criar database: `springboot_course`
+- [ ] Heroku Sign Up
+- [ ] Create app
+- [ ] Provision PostgreSQL
+  - App dashboard -> Resources
+  - Search "postgres" -> select "Heroku Postgres"
 
 ---
 
-## 14. Deploy no Heroku - Configuração Final
+## 13. Install local PostgreSQL
 
-### Passos:
-1. Criar `application-prod.properties` com:
-   ```properties
-   spring.datasource.url=${DATABASE_URL}
-   spring.jpa.hibernate.ddl-auto=none
-   spring.jpa.show-sql=false
-   spring.jpa.properties.hibernate.format_sql=false
-   ```
-2. Criar `system.properties`:
-   ```
-   java.runtime.version=17
-   ```
-3. Enviar para o Heroku:
-   ```bash
-   git add .
-   git commit -m "Deploy app to Heroku"
-   git push heroku main
+### Checklist:
+- [ ] [Download and install PostgreSQL](https://www.postgresql.org/download/)
+  - Super user: `postgres`
+  - Password: `1234567`
+  - Port: `5432`
+- [ ] Start/stop service: Task manager -> Services
+- [ ] Check instalação:
+  - Start pgAdmin
+  - Databases -> Create -> Database
+    - Encoding: `UTF8`
+
+---
+
+## 14. Dev profile
+
+### Checklist:
+- [ ] PgAdmin: create local database: `create database springboot_course;`
+- [ ] Add PostgreSQL Maven dependency:
+
+```xml
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+- [ ] Create file: `application-dev.properties`
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/springboot_course
+spring.datasource.username=postgres
+spring.datasource.password=1234567
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+jwt.secret=MYJWTSECRET
+jwt.expiration=3600000
+```
+
+- [ ] Update `application.properties`:
+
+```properties
+spring.profiles.active=dev
+```
+
+- [ ] Run application
+
+---
+
+## 15. Get SQL script from local PostgreSQL
+
+- PgAdmin: get SQL script:
+  - Select database
+  - Tools -> Backup
+    - Format: `Plain`
+    - Encoding: `UTF8`
+    - Dump options:
+      - Only schema: `YES`
+      - Blobs: `NO`
+      - Do not save: (ALL)
+      - Verbose messages: `NO`
+      - Delete instructions before CREATE statements
+
+---
+
+## 16. Run SQL Script
+
+### Checklist:
+- [ ] App dashboard -> Settings -> Config Vars
+
+**EXAMPLE:**
+```
+postgres://wavglvupbdad:358f443aafe452eca4c58fbc15d02e50b08130c7aaea3aff6c4f59c
+13f9abb@ec2-23-21-106-266.compute-1.amazonaws.com:5432/d7u9ub86cdsu
+```
+
+- **User:** `wavglvupbdad`
+- **Password:** `358f443aafe452eca4c58fbc15d02e50b08130c7aaea3aff6c4f59c13f9abb`
+- **Server:** `ec2-23-21-106-266.compute-1.amazonaws.com`
+- **Port:** `5432`
+- **Database:** `d7u9ub86cdsu`
+
+- PgAdmin: Servers -> Create -> Server
+  - Advanced -> DB restriction: (database)
+- Database -> Query Tool
+  - Load and run SQL Script
+
+---
+
+## 17. Heroku CLI
+
+- Buscar `Heroku CLI` no Google
+- Terminal:
+
+```sh
+heroku login
+winpty heroku.cmd login
+```
+
+---
+
+## 18. Deploy app to Heroku
+
+### Checklist:
+- [ ] Heroku app dashboard -> Deploy
+
+```sh
+heroku git:remote -a myapp
+git remote -v
+```
+
+- [ ] Setup Heroku app Config Vars
+  - `DATABASE_URL`
+  - `JWT_EXPIRATION`
+  - `JWT_SECRET`
+
+- [ ] Create `application-prod.properties`
+
+```properties
+spring.datasource.url=${DATABASE_URL}
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=false
+jwt.secret=${JWT_SECRET}
+jwt.expiration=${JWT_EXPIRATION}
+```
+
+- [ ] Update `application.properties`:
+
+```properties
+spring.profiles.active=prod
+```
+
+- [ ] Create file: `system.properties`
+
+```sh
+java.runtime.version=17
+```
+
+- [ ] Send to Heroku:
+
+```sh
+git add .
+git commit -m "Deploy app to Heroku"
+git push heroku main
+```
+
