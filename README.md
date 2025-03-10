@@ -341,9 +341,9 @@ OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 ## 12. Create Heroku app & provision PostgreSQL
 
 ### Checklist:
-- [ ] Heroku Sign Up
-- [ ] Create app
-- [ ] Provision PostgreSQL
+- 1. Heroku Sign Up
+- 2. Create app
+- 3. Provision PostgreSQL
   - App dashboard -> Resources
   - Search "postgres" -> select "Heroku Postgres"
 
@@ -352,12 +352,12 @@ OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 ## 13. Install local PostgreSQL
 
 ### Checklist:
-- [ ] [Download and install PostgreSQL](https://www.postgresql.org/download/)
+- 1. [Download and install PostgreSQL](https://www.postgresql.org/download/)
   - Super user: `postgres`
   - Password: `1234567`
   - Port: `5432`
-- [ ] Start/stop service: Task manager -> Services
-- [ ] Check instalação:
+- 2. Start/stop service: Task manager -> Services
+- 3. Check instalação:
   - Start pgAdmin
   - Databases -> Create -> Database
     - Encoding: `UTF8`
@@ -367,8 +367,8 @@ OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 ## 14. Dev profile
 
 ### Checklist:
-- [ ] PgAdmin: create local database: `create database springboot_course;`
-- [ ] Add PostgreSQL Maven dependency:
+- 1. PgAdmin: create local database: `create database springboot_course;`
+- 2. Add PostgreSQL Maven dependency:
 
 ```xml
 <dependency>
@@ -378,7 +378,7 @@ OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 </dependency>
 ```
 
-- [ ] Create file: `application-dev.properties`
+- 3. Create file: `application-dev.properties`
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/springboot_course
@@ -392,13 +392,13 @@ jwt.secret=MYJWTSECRET
 jwt.expiration=3600000
 ```
 
-- [ ] Update `application.properties`:
+- 4. Update `application.properties`:
 
 ```properties
 spring.profiles.active=dev
 ```
 
-- [ ] Run application
+- 5. Run application
 
 ---
 
@@ -421,7 +421,7 @@ spring.profiles.active=dev
 ## 16. Run SQL Script
 
 ### Checklist:
-- [ ] App dashboard -> Settings -> Config Vars
+- 1. App dashboard -> Settings -> Config Vars
 
 **EXAMPLE:**
 ```
@@ -457,19 +457,19 @@ winpty heroku.cmd login
 ## 18. Deploy app to Heroku
 
 ### Checklist:
-- [ ] Heroku app dashboard -> Deploy
+- 1. Heroku app dashboard -> Deploy
 
 ```sh
 heroku git:remote -a myapp
 git remote -v
 ```
 
-- [ ] Setup Heroku app Config Vars
+- 2. Setup Heroku app Config Vars
   - `DATABASE_URL`
   - `JWT_EXPIRATION`
   - `JWT_SECRET`
 
-- [ ] Create `application-prod.properties`
+- 3. Create `application-prod.properties`
 
 ```properties
 spring.datasource.url=${DATABASE_URL}
@@ -480,19 +480,19 @@ jwt.secret=${JWT_SECRET}
 jwt.expiration=${JWT_EXPIRATION}
 ```
 
-- [ ] Update `application.properties`:
+- 4. Update `application.properties`:
 
 ```properties
 spring.profiles.active=prod
 ```
 
-- [ ] Create file: `system.properties`
+- 5. Create file: `system.properties`
 
 ```sh
 java.runtime.version=17
 ```
 
-- [ ] Send to Heroku:
+- 6. Send to Heroku:
 
 ```sh
 git add .
