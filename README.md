@@ -169,10 +169,6 @@
 
 ---
 
-# Projeto Spring Boot com JPA e PostgreSQL
-
----
-
 ## 1. Criação das Entidades Category e Product
 
 ### Associação de Muitos para Muitos (com JoinTable)
