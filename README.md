@@ -169,13 +169,6 @@
 
 ---
 
-## Formatação Markdown
-
-- `_()`_ para observações
-- `-` para listas
-- `** **` para **negrito**
-- `#` para títulos
-
 # Projeto Spring Boot com JPA e PostgreSQL
 
 ---
