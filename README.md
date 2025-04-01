@@ -1,4 +1,5 @@
 # Projeto web services com spring boot e jpa/hibernate
+Este projeto implementa um modelo de domínio utilizando Spring Boot, JPA e Hibernate para persistência de dados. O objetivo é demonstrar boas práticas no desenvolvimento de APIs RESTful com integração a um banco de dados relacional.
 > Neste documento está regisrado anotações e observações que escreveri dos passos que foram seguidos durante a criação do projeto do curso "Curso mais didático e completo de Java e POO, UML, JDBC, JavaFX, Spring Boot, JPA, Hibernate, MySQL, MongoDB e muito mais" do Professor Nelio Alves na Udemy
 
 - UML: 
