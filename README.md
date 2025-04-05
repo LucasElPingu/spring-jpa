@@ -33,7 +33,7 @@ Este projeto implementa um modelo de domínio utilizando Spring Boot, JPA e Hibe
 - **PostgreSQL**
 - **Heroku** *(Plataforma em nuvem como serviço)*
 
-> **OBS:** O *Spring Boot* está na versão **3**, e a aula está na versão **2**. Prestar atenção nisso.
+> **OBS:** O *Spring Boot* está na versão **3**
 
 ---
 
